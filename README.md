@@ -1,20 +1,19 @@
-# 🌐 REST API to Trino Integration
+#  REST API to Trino Integration
 
 This project demonstrates how to extract data from a live REST API, load it into PostgreSQL on an AWS EC2 instance, connect that database to Trino, and make the data queryable from both Trino and external metadata tools like Informatica MCC.
 
-## 🧱 Architecture Overview
+##  Architecture Overview
 
 ```
-REST API → Python → PostgreSQL → Trino → JDBC Client / Informatica
+REST API → Python → PostgreSQL → Trino 
 ```
 
-## ✅ Stack
+##  Stack
 
 - Python (pandas, SQLAlchemy, psycopg2)
 - PostgreSQL
 - Trino
 - AWS EC2 (Ubuntu)
-- JDBC (Trino CLI & Informatica)
 
 ## 🔁 Steps
 
@@ -35,7 +34,7 @@ source apienv/bin/activate
 pip install pandas requests sqlalchemy psycopg2-binary
 ```
 
-## 🐍 `fetch_api_data.py`
+##  `fetch_api_data.py`
 
 ```python
 import requests
@@ -53,10 +52,10 @@ engine = create_engine("postgresql://trino:trino@localhost/apidata")
 # Write to Postgres
 df.to_sql("posts", engine, if_exists="replace", index=False)
 
-print("✅ Data written to PostgreSQL successfully!")
+print(" Data written to PostgreSQL successfully!")
 ```
 
-## 🐘 `setup_postgres.sql`
+##  `setup_postgres.sql`
 
 ```sql
 -- Run these as the 'postgres' user
@@ -70,7 +69,7 @@ ALTER SCHEMA public OWNER TO trino;
 GRANT ALL ON SCHEMA public TO trino;
 ```
 
-## 🔌 Trino PostgreSQL Connector
+##  Trino PostgreSQL Connector
 
 Place the file in `trino_catalog_config/postgres.properties`:
 
@@ -88,7 +87,7 @@ cd /trino-server-351
 bin/launcher restart
 ```
 
-## 🧪 Query from Trino CLI
+##  Query from Trino CLI
 
 ```bash
 ./trino --server localhost:8080 --catalog postgres --schema public
@@ -99,15 +98,8 @@ SHOW TABLES;
 SELECT * FROM posts LIMIT 5;
 ```
 
-## 📡 Connect to Informatica MCC
 
-```
-jdbc:trino://<your-ec2-ip>:8080/postgres/public
-```
-
-User: `trino`  
-Password: `trino`
 
 ## 🏁 Outcome
 
-Trino now surfaces live API data for analytics and metadata discovery. Enjoy!
+Trino now surfaces live API data for analytics. Enjoy!
