@@ -15,7 +15,7 @@ REST API → Python → PostgreSQL → Trino
 - Trino
 - AWS EC2 (Ubuntu)
 
-## 🔁 Steps
+## Steps
 
 ### 1. Clone this repo and SSH into your EC2 instance.
 
@@ -100,6 +100,6 @@ SELECT * FROM posts LIMIT 5;
 
 
 
-## 🏁 Outcome
+## Outcome
 
 Trino now surfaces live API data for analytics. Enjoy!
